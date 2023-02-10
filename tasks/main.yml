@@ -56,7 +56,7 @@
 
 - name: Create apache SSL-Config for include
   ansible.builtin.template:
-    src: "ssl-common-config.j2"
+    src: "apache_ssl_common.j2"
     dest: "{{ apache_ssl_common_config }}"
     owner: root
     group: root

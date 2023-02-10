@@ -6,12 +6,12 @@ SSLHonorCipherOrder On
 {% if apache_vhosts_version == "2.4" %}
 SSLCompression off
 {% endif %}
-{% if apache_tls_hsts_enable %}
-{% if apache_dh_use and "apache_version.split('.')[1] == '4'" %}
-SSLOpenSSLConfCmd DHParameters "{{ nginx_dh_filename  }}"
+{% if apache_dh_use and apache_vhosts_version == "2.4" %}
+SSLOpenSSLConfCmd DHParameters "{{ apache_dh_filename }}"
 {% endif %}
+{% if apache_tls_hsts_enable %}
 
-# HSTS enables (63072000 seconds: 1 year)
+# HSTS enabled (63072000 seconds: 1 year)
 <IfModule mod_headers.c>
   Header always set Strict-Transport-Security "max-age={{ apache_tls_hsts_time }}"
 </IfModule>
