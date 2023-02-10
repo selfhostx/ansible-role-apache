@@ -34,7 +34,7 @@
 
 - name: Include Apache 2.4 variables.
   ansible.builtin.include_vars: apache-24.yml
-  when: "apache_version.split('.')[1] == '4'"
+  when: apache_version.split('.')[1] == '4'
 
 - name: Generate DH Parameters (will take a while!)
   community.crypto.openssl_dhparam:
@@ -42,17 +42,17 @@
     size: "{{ apache_dh_size }}"
   when:
     - apache_dh_generate
-    - apache_version.split('.')[1] == '4'"
+    - apache_version.split('.')[1] == '4'
 
-- name: Generate DH Parameters
+- name: Correct file permissions
   ansible.builtin.file:
-    path: "{{ nginx_dh_filename }}"
+    path: "{{ apache_dh_filename }}"
     owner: root
     group: root
     mode: "0600"
   when:
-    - apache_dh_generate
-    - apache_version.split('.')[1] == '4'"
+    - apache_dh_generate or apache_dh_use
+    - apache_version.split('.')[1] == '4'
 
 - name: Create apache SSL-Config for include
   ansible.builtin.template:

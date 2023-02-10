@@ -21,3 +21,5 @@ apache_ports_configuration_items:
 
 # file to put the ssl-parameters in (included in all vhosts):
 apache_ssl_common_config: "/etc/httpd/ssl-common-config"
+
+apache_dh_filename: /etc/httpd/dhparam.pem

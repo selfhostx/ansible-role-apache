@@ -43,7 +43,6 @@ apache_ssl_honor_cipherorder: true
 
 apache_dh_use: true
 apache_dh_generate: true
-apache_dh_filename: 
 apache_dh_size: 4096
 
 apache_tls_hsts_enable: true
