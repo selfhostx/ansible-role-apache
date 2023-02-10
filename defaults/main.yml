@@ -44,6 +44,9 @@ apache_ssl_honor_cipherorder: true
 apache_tls_hsts_enable: true
 apache_tls_hsts_time: 31536000
 
+# This directive configures what you return as the Server HTTP response (possible values: Full | OS | Minimal | Minor | Major | Prod)
+apache_servertokens: Prod
+
 # Only used on Debian/Ubuntu/Redhat.
 apache_mods_enabled:
   - headers

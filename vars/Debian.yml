@@ -15,3 +15,5 @@ apache_ports_configuration_items:
 
 # file to put the ssl-parameters in (included in all vhosts):
 apache_ssl_common_config: "/etc/apache2/ssl-common-config"
+
+apache_security_config_file: "/etc/apache2/conf-available/security.conf"

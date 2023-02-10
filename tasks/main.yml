@@ -44,6 +44,19 @@
     group: root
     mode: '0644'
 
+- name: Update ServerTokens configuration (Debian).
+  ansible.builtin.lineinfile:
+    dest: "{{ apache_security_config_file }}"
+    line: "{{ item.name }} {{ item.value }}"
+    regexp: "^{{ item.name }} ="
+  when:
+    - apache_servertokens is defined
+    # FIXME add other distributions as well
+    - ansible_os_family == "Debian"
+  with_items:
+    - name: ServerTokens
+      value: "{{ apache_servertokens }}"
+
 # Configure Apache.
 - name: Configure Apache.
   ansible.builtin.include_tasks: "configure-{{ ansible_os_family }}.yml"
