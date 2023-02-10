@@ -29,11 +29,11 @@
     apache_version: "{{ _apache_version.stdout.split()[2].split('/')[1] }}"
 
 - name: Include Apache 2.2 variables.
-  ansible.builtin.include_tasks: apache-22.yml
+  ansible.builtin.include_vars: apache-22.yml
   when: "apache_version.split('.')[1] == '2'"
 
 - name: Include Apache 2.4 variables.
-  ansible.builtin.include_tasks: apache-24.yml
+  ansible.builtin.include_vars: apache-24.yml
   when: "apache_version.split('.')[1] == '4'"
 
 - name: Generate DH Parameters (will take a while!)
