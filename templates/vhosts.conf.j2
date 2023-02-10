@@ -46,12 +46,8 @@
 {% endif %}
 
   SSLEngine on
-  SSLCipherSuite {{ apache_ssl_cipher_suite }}
-  SSLProtocol {{ apache_ssl_protocol }}
-  SSLHonorCipherOrder On
-{% if apache_vhosts_version == "2.4" %}
-  SSLCompression off
-{% endif %}
+  Include apache_ssl_common_config
+
   SSLCertificateFile {{ vhost.certificate_file }}
   SSLCertificateKeyFile {{ vhost.certificate_key_file }}
 {% if vhost.certificate_chain_file is defined %}

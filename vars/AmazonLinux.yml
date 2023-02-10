@@ -16,3 +16,6 @@ __apache_packages:
 apache_ports_configuration_items:
   - regexp: "^Listen "
     line: "Listen {{ apache_listen_port }}"
+
+# file to put the ssl-parameters in (included in all vhosts):
+apache_ssl_common_config: "/etc/httpd/ssl-common-config"

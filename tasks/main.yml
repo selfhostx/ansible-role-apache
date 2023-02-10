@@ -36,6 +36,14 @@
   ansible.builtin.include_tasks: apache-24.yml
   when: "apache_version.split('.')[1] == '4'"
 
+- name: Create apache SSL-Config for include
+  ansible.builtin.template:
+    src: "ssl-common-config.j2"
+    dest: "{{ apache_ssl_common_config }}"
+    owner: root
+    group: root
+    mode: '0644'
+
 # Configure Apache.
 - name: Configure Apache.
   ansible.builtin.include_tasks: "configure-{{ ansible_os_family }}.yml"

@@ -1,0 +1,15 @@
+SSLProtocol {{ apache_ssl_protocol }}
+SSLCipherSuite '{{ apache_ssl_cipher_suite }}'
+{% if apache_ssl_honor_cipherorder %}
+SSLHonorCipherOrder On
+{% endif %}
+{% if apache_vhosts_version == "2.4" %}
+SSLCompression off
+{% endif %}
+{% if apache_tls_hsts_enable %}
+
+# HSTS enables (63072000 seconds: 1 year)
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age={{ apache_tls_hsts_time }}"
+</IfModule>
+{% endif %}
