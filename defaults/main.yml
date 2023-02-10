@@ -41,6 +41,11 @@ apache_ssl_protocol: "All -SSLv2 -SSLv3 -TLSv1 -TLSv1.1"
 apache_ssl_cipher_suite: "EECDH+ECDSA+AESGCM:EECDH+aRSA+AESGCM:EECDH+ECDSA:EECDH:EDH+AESGCM:EDH:ECDH+AESGCM:ECDH+AES:ECDH:HIGH:MEDIUM:!RC4:!3DES:!CAMELLIA:!SEED:!aNULL:!MD5:!eNULL:!LOW:!EXP:!DSS:!PSK:!SRP"
 apache_ssl_honor_cipherorder: true
 
+apache_dh_use: true
+apache_dh_generate: true
+apache_dh_filename: 
+apache_dh_size: 4096
+
 apache_tls_hsts_enable: true
 apache_tls_hsts_time: 31536000
 
