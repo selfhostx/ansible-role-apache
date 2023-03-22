@@ -1,5 +1,5 @@
 ---
-- name: Configure Apache.
+- name: Configure Apache
   ansible.builtin.lineinfile:
     dest: "{{ apache_server_root }}/ports.conf"
     regexp: "{{ item.regexp }}"
@@ -9,7 +9,7 @@
   with_items: "{{ apache_ports_configuration_items }}"
   notify: Restart apache
 
-- name: Enable Apache mods.
+- name: Enable Apache mods
   ansible.builtin.file:
     src: "{{ apache_server_root }}/mods-available/{{ item }}.load"
     dest: "{{ apache_server_root }}/mods-enabled/{{ item }}.load"
@@ -18,21 +18,21 @@
   with_items: "{{ apache_mods_enabled }}"
   notify: Restart apache
 
-- name: Disable Apache mods.
+- name: Disable Apache mods
   ansible.builtin.file:
     path: "{{ apache_server_root }}/mods-enabled/{{ item }}.load"
     state: absent
   with_items: "{{ apache_mods_disabled }}"
   notify: Restart apache
 
-- name: Check whether certificates defined in vhosts exist.
+- name: Check whether certificates defined in vhosts exist
   ansible.builtin.stat:
     path: "{{ item.certificate_file }}"
   register: apache_ssl_certificates
   with_items: "{{ apache_vhosts_ssl }}"
   no_log: true
 
-- name: Add apache vhosts configuration.
+- name: Add apache vhosts configuration
   ansible.builtin.template:
     src: "{{ apache_vhosts_template }}"
     dest: "{{ apache_conf_path }}/sites-available/{{ apache_vhosts_filename }}"
@@ -42,7 +42,7 @@
   notify: Restart apache
   when: apache_create_vhosts | bool
 
-- name: Add vhost symlink in sites-enabled.
+- name: Add vhost symlink in sites-enabled
   ansible.builtin.file:
     src: "{{ apache_conf_path }}/sites-available/{{ apache_vhosts_filename }}"
     dest: "{{ apache_conf_path }}/sites-enabled/{{ apache_vhosts_filename }}"
@@ -51,7 +51,7 @@
   notify: Restart apache
   when: apache_create_vhosts | bool
 
-- name: Remove default vhost in sites-enabled.
+- name: Remove default vhost in sites-enabled
   ansible.builtin.file:
     path: "{{ apache_conf_path }}/sites-enabled/{{ apache_default_vhost_filename }}"
     state: absent
