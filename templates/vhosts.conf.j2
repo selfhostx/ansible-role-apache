@@ -52,7 +52,7 @@ Listen {{ vhost.apache_listen_port_ssl }}
 {% endif %}
 
   SSLEngine on
-  Include apache_ssl_common_config
+  Include "{{ apache_ssl_common_config }}"
 
   SSLCertificateFile {{ vhost.certificate_file }}
   SSLCertificateKeyFile {{ vhost.certificate_key_file }}
