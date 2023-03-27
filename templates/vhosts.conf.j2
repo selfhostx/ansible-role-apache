@@ -2,7 +2,10 @@
 
 {# Set up VirtualHosts #}
 {% for vhost in apache_vhosts %}
-<VirtualHost {{ apache_listen_ip }}:{{ apache_listen_port }}>
+{% if vhost.apache_listen_port is defined and vhost.apache_listen_port|length>0 %}
+Listen {{ vhost.apache_listen_port }}
+{% endif %}
+<VirtualHost {{ apache_listen_ip }}:{{ vhost.apache_listen_port|default(apache_listen_port) }}>
   ServerName {{ vhost.servername }}
 {% if vhost.serveralias is defined %}
   ServerAlias {{ vhost.serveralias }}
@@ -36,7 +39,10 @@
 {# Set up SSL VirtualHosts #}
 {% for vhost in apache_vhosts_ssl %}
 {% if apache_ignore_missing_ssl_certificate or apache_ssl_certificates.results[loop.index0].stat.exists %}
-<VirtualHost {{ apache_listen_ip }}:{{ apache_listen_port_ssl }}>
+{% if vhost.apache_listen_port_ssl is defined and vhost.apache_listen_port_ssl|length>0 %}
+Listen {{ vhost.apache_listen_port_ssl }}
+{% endif %}
+<VirtualHost {{ apache_listen_ip }}:{{ vhost.apache_listen_port_ssl|default(apache_listen_port_ssl) }}>
   ServerName {{ vhost.servername }}
 {% if vhost.serveralias is defined %}
   ServerAlias {{ vhost.serveralias }}
